@@ -13,7 +13,7 @@ class CartacciaActor extends Actor {
       // do nothing so that a TimeoutException will be triggered somewhere else
 
     case s: String =>
-      lastMessage = s
+      lastMessage = s // update internal state with the last received message
       println("I received: " + s)
       val response = s + " è na cartaccia!" // dialect from the mid-90s in Rome, Italy
       sender ! response
