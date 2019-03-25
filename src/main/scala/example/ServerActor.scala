@@ -11,6 +11,7 @@ import scala.util.{Failure, Success}
 
 class ServerActor(cartacciaActor: ActorRef) extends Actor {
 
+  // necessary plumbing
   implicit val system = context.system
   implicit val ec = context.system.dispatcher
   implicit val am = ActorMaterializer()
@@ -26,8 +27,8 @@ class ServerActor(cartacciaActor: ActorRef) extends Actor {
           else (cartacciaActor ? meșsage) (3.seconds).mapTo[String]
 
         onComplete(futureResponse) {
-          case Success(response) => complete(response)
-          case Failure(error) => complete("Aronadio!!")
+          case Success(response) => complete(response) // success: forward the response received from the CartacciaActor
+          case Failure(error) => complete("Aronadio!!") // failure: respond with the name of our Philosophy's professor in high school
         }
       }
     }
